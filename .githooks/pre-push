@@ -1,0 +1,17 @@
+#!/bin/sh
+# Roda a suite de testes antes de qualquer push — barra código quebrado
+# de sair da máquina local.
+
+echo "Rodando testes antes do push..."
+
+php artisan test
+result=$?
+
+if [ $result -ne 0 ]; then
+    echo ""
+    echo "Push bloqueado: os testes falharam. Corrija antes de mandar pro GitHub."
+    echo "(pra pular em um caso excepcional: git push --no-verify)"
+    exit 1
+fi
+
+exit 0
